@@ -1,0 +1,861 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{ecsn}[2023/03/06 ECSN journal style]
+
+%*******************
+% параметры
+%*******************
+
+\RequirePackage{xkeyval}
+
+\define@key{ecsn}{copies}{%
+  \newcommand{\ecsnCopies}{#1} % тираж
+}
+
+\define@key{ecsn}{prndate}{%
+  \newcommand{\ecsnPrintDate}{#1} % дата выхода в печать
+}
+
+\define@key{ecsn}{year}{%
+  \newcommand{\ecsnYear}{#1} % год
+}
+
+\define@key{ecsn}{month}{%
+  \newcommand{\ecsnMonth}{#1} % месяц
+}
+
+\define@key{ecsn}{num}{%
+  \newcommand{\ecsnNum}{#1} % номер
+}
+
+\define@key{ecsn}{upl}{%
+  \newcommand{\ecsnUPL}{#1} % кол-во условных печ. листов
+}
+
+
+% Стиль по умолчанию = ecsn (Экономические науки)
+
+\RequirePackage[dvipsnames]{xcolor}
+
+\define@choicekey{ecsn}{journal}[\val\ecsntype]{ecn,vep}[ecn]{%
+    \def\ecsn@journal{\ecsntype}
+}
+\setkeys{ecsn}{journal=ecn}
+
+\DeclareOptionX*{
+    \PackageWarning{ecsn}{Unknown option ‘\CurrentOption’}%
+}
+
+\ProcessOptionsX<ecsn>
+
+
+\ifcase\ecsn@journal
+    % case = 0 (journal == ecn)
+    \newcommand{\ecsnName}{Экономические науки}
+    \newcommand{\ecsnNameEn}{Economic Sciences}
+    \newcommand{\ecsnDOIprefix}{10.14451/1}
+    %\definecolor{ecsnColor1}{HTML}{BD1759}
+    \definecolor{ecsnColor1}{HTML}{CA457A}
+    \definecolor{ecsnColor2}{HTML}{971247}
+    \definecolor{v3cHeaderRule}{HTML}{E5E5E5}
+    \definecolor{v3cHeaderText}{HTML}{4D4D4D}
+    \definecolor{v3cSection}{HTML}{A60032}
+    \definecolor{v3cKW1}{HTML}{A60032}
+    \definecolor{v3cKW2}{HTML}{A3808A}
+    \definecolor{v3cBib}{HTML}{B1B1B1}
+    \definecolor{v3cText}{HTML}{303030}
+    \definecolor{ecsnCiteColorV3}{HTML}{CF0053} % розовый для цитат v3
+\or
+    % case = 1 (journal == vep)
+    \newcommand{\ecsnName}{Вопросы экономики и права}
+    \newcommand{\ecsnNameEn}{Economic and Law Issues}
+    \newcommand{\ecsnDOIprefix}{10.14451/2}
+    %\definecolor{ecsnColor1}{HTML}{5739B4}
+    \definecolor{ecsnColor1}{HTML}{7961C3}
+    \definecolor{ecsnColor2}{HTML}{462E90}
+    \definecolor{v3cHeaderRule}{HTML}{E5E5E5}
+    \definecolor{v3cHeaderText}{HTML}{4D4D4D}
+    \definecolor{v3cSection}{HTML}{371896}
+    \definecolor{v3cKW1}{HTML}{371896}
+    \definecolor{v3cKW2}{HTML}{9B8BCB}
+    \definecolor{v3cBib}{HTML}{B1B1B1}
+    \definecolor{v3cText}{HTML}{303030}
+    \definecolor{ecsnCiteColorV3}{HTML}{2C1378}
+\else
+\fi
+
+% Палитры V3
+
+\definecolor{v3Magenta}{HTML}{CF0053}
+\colorlet{v3Magenta70}{White!30!v3Magenta}
+\colorlet{v3Magenta50}{White!50!v3Magenta}
+\colorlet{v3Magenta30}{White!70!v3Magenta}
+\colorlet{v3Magenta10}{White!90!v3Magenta}
+
+\definecolor{v3Violet}{HTML}{84049F}
+\colorlet{v3Violet70}{White!30!v3Violet}
+\colorlet{v3Violet50}{White!50!v3Violet}
+\colorlet{v3Violet30}{White!70!v3Violet}
+\colorlet{v3Violet10}{White!90!v3Violet}
+
+\definecolor{v3Green}{HTML}{79DB00}
+\colorlet{v3Green70}{White!30!v3Green}
+\colorlet{v3Green50}{White!50!v3Green}
+\colorlet{v3Green30}{White!70!v3Green}
+\colorlet{v3Green10}{White!90!v3Green}
+
+\definecolor{v3Orange}{HTML}{F12E00}
+\colorlet{v3Orange70}{White!30!v3Orange}
+\colorlet{v3Orange50}{White!50!v3Orange}
+\colorlet{v3Orange30}{White!70!v3Orange}
+\colorlet{v3Orange10}{White!90!v3Orange}
+
+\colorlet{v3Black70}{White!30!Black}
+\colorlet{v3Black50}{White!50!Black}
+\colorlet{v3Black30}{White!70!Black}
+\colorlet{v3Black10}{White!90!Black}
+
+% медный цвет
+\definecolor{ecsnColor3}{HTML}{A35B1E}
+
+% серый для цитат
+\definecolor{ecsnCiteColor}{HTML}{808080}
+
+% серый для линий таблиц
+\definecolor{ecsnTbLineColor}{HTML}{D9D9D9}
+
+% серый для зебры в таблицах
+\definecolor{ecsnZebraColor}{HTML}{F8F8F8}
+
+% серый для спонсорской сноски
+\definecolor{ecsnSponsorFootnoteColor}{HTML}{717171}
+
+% цвет для рубля в спонсорской сноске
+\definecolor{ecsnSponsorRubColor}{HTML}{CA8D45}
+
+% серый для линеек V3
+\definecolor{ecsnRuleColor}{HTML}{CACACA}
+
+% таблицы v3
+% серый фон для первой строки и линий
+\definecolor{ecsnTbGray}{HTML}{F4F4F4}
+
+% серый шрифт
+\definecolor{ecsnTbFontGray}{HTML}{7A7A7A}
+
+% зеленый для фона
+\colorlet{ecsnTbGreen}{White!90!v3Green}
+
+% зеленый шрифт
+\definecolor{ecsnTbFontGreen}{HTML}{79db00}
+
+% красный шрифт
+\definecolor{ecsnTbFontRed}{HTML}{f12e00}
+
+
+
+%*******************
+% логирование
+%*******************
+\newwrite\myoutput
+\immediate\openout\myoutput=\jobname.data
+
+%*******************
+% размеры и поля
+%*******************
+\RequirePackage[paperheight=290mm,
+            paperwidth=205mm,
+            top=24mm,
+            bottom=30mm,
+            left=20mm,
+            right=20mm]{geometry}
+
+\RequirePackage[skip=8pt plus1pt]{parskip}
+
+%*******************
+% шрифты
+%*******************
+% Языки
+\RequirePackage{polyglossia}
+\setmainlanguage[babelshorthands=true]{russian}
+\setotherlanguages{english,french,chinese}
+
+
+\RequirePackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+
+%\setmainfont[ItalicFont={Noto Sans Italic}]{Onest}
+\setmainfont[%
+ItalicFont=*-Regular, ItalicFeatures={FakeSlant=0.15},
+BoldItalicFont=*-Medium, BoldItalicFeatures={FakeSlant=0.15}]{Onest} 
+\setromanfont[Scale=MatchLowercase]{Erewhon}
+\setsansfont[%
+ItalicFont=*-Regular, ItalicFeatures={FakeSlant=0.15},
+BoldItalicFont=*-Medium, BoldItalicFeatures={FakeSlant=0.15}]{Onest}
+
+\IfFontExistsTF{Noto Mono}{%
+    \setmonofont[Scale=MatchLowercase]{Noto Mono}%
+    \newfontfamily{\cyrillicfonttt}[Scale=MatchLowercase]{Noto Mono}%
+    \newfontfamily\noligsmonofamily[NFSSFamily=noligsmonofamily]{Noto Mono}%
+    }%
+    {\setmonofont[Scale=MatchLowercase]{Noto Sans Mono}%
+     \newfontfamily{\cyrillicfonttt}[Scale=MatchLowercase]{Noto Sans Mono}%
+     \newfontfamily\noligsmonofamily[NFSSFamily=noligsmonofamily]{Noto Sans Mono}%
+    }
+
+% Sans по умолчанию
+\renewcommand{\familydefault}{\sfdefault}
+
+\newfontfamily{\medfont}{Onest Medium}
+\newfontfamily{\lightfont}{Onest Light}
+
+% Шрифт для обложки
+\newfontfamily{\titlefont}{DIN Condensed}
+
+% китайский
+\newfontfamily\chinesefont{Noto Sans CJK SC}[Script=CJK]
+\newfontfamily\chinesefontsf{Noto Sans CJK SC}[Script=CJK]
+
+% Замена для диакритики, который нет в Onest
+\newfontfamily{\notosans}{Noto Sans}
+
+\RequirePackage{microtype}
+
+%*******************
+% формулы
+%*******************
+%\RequirePackage{icomma} %запятая в десятичных дробях (зацикливается!)
+\RequirePackage{amsmath}
+\RequirePackage{mathtools}
+%\RequirePackage{amssymb} % символы есть в Erewhon
+\RequirePackage[math-style=upright]{unicode-math}
+\setmathfont{Erewhon Math}[Scale=MatchLowercase, StylisticSet={4}]
+
+% операторы набирать с \mathnormal. Пример: %\DeclareMathOperator{\myop}{\mathnormal{MyOP}}
+
+% Использовать шрифт unicode-math в обычных операторах (sin, cos и т.п.) 
+%\setoperatorfont\symscr
+
+% уменьшить вертикальные отступы в выключных формулах
+\setlength{\abovedisplayskip}{3pt}
+\setlength{\belowdisplayskip}{3pt}
+
+% \text в формулах набирать через serif (roman font)
+\newcommand{\mt}[1]{\text{\textrm{#1}}}
+
+\RequirePackage{siunitx}
+\sisetup{detect-all, range-units = single, range-phrase= \text{--}, per-mode=symbol, output-decimal-marker = {,}}
+
+%*******************
+% листинги
+%*******************
+%\RequirePackage{minted}
+%\setminted{
+%  baselinestretch=1.0,
+%   breaklines,
+%  fontsize=\footnotesize,
+%  frame=lines,
+%  framesep=2mm
+%}
+
+% убираем красные рамки (https://tex.stackexchange.com/questions/343494/minted-red-box-around-greek-characters)
+%\RequirePackage{etoolbox}
+%\RequirePackage{xpatch}
+
+%\AtBeginEnvironment{minted}{\dontdofcolorbox}
+%\def\dontdofcolorbox{\renewcommand\fcolorbox[4][]{##4}}
+%\xpatchcmd{\inputminted}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{}
+%\xpatchcmd{\mintinline}{\minted@fvset}{\minted@fvset\dontdofcolorbox}{}{} % see https://tex.stackexchange.com/a/401250/
+
+%\renewcommand{\listingscaption}{Листинг}
+
+%*******************
+% графика
+%*******************
+\RequirePackage{tikz}
+\usetikzlibrary{calc,positioning,mindmap,shapes,arrows,arrows.meta}
+\RequirePackage{smartdiagram}
+\RequirePackage{pgf-pie} 
+\RequirePackage{tcolorbox}
+% Пути к каталогам с изображениями
+\RequirePackage{graphicx} % Вставка картинок и дополнений
+\graphicspath{{images/}}
+
+% для вставки изображений со скгругленными углами
+\newcommand*{\ClipSep}{5mm}%
+
+%*******************
+% прочее
+%*******************
+\RequirePackage[nodisplayskipstretch]{setspace} % для управления межстрочным
+\def\setmainlinespread{\setstretch{1.2}}
+\RequirePackage{float} % Расширенное управление плавающими объектами
+\RequirePackage{placeins} % для \FloatBarrier 
+\RequirePackage{multicol} % Многоколоночная верстка
+\RequirePackage[labelformat=simple]{subcaption}
+\RequirePackage{lscape} % повернутые страницы
+
+% вставка пустой страницы
+\RequirePackage{afterpage}
+
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    %\addtocounter{page}{-1}%
+    \newpage}
+
+%*******************
+% Списки
+%*******************
+\RequirePackage{enumitem}
+% Используем короткое тире (endash) для ненумерованных списков
+\renewcommand{\labelitemi}{\normalfont{--}}
+
+\setlist{nosep, nolistsep, topsep=0pt, labelindent=*,leftmargin=*}
+
+% стиль для вложенной нумерации цифрами
+\newlist{romanenum}{enumerate}{2}
+\setlist[romanenum, 1]
+{label=\arabic{romanenumi}., %1., 2., 3., ...
+}
+\setlist[romanenum, 2]
+{label=\arabic{romanenumi}.\arabic{romanenumii}, %1.1, 1.2, 1.3...
+}
+
+% счетчик кириллицей
+\AddEnumerateCounter{\asbuk}{\russian@alph}{щ}
+
+%*******************
+% стиль подписей к рисункам и таблицам
+%*******************
+\RequirePackage[labelfont={small,bf}, textfont={small}, labelsep=period]{caption}
+\captionsetup{justification=raggedright, singlelinecheck=false}
+
+\renewcommand\thesubfigure{\asbuk{subfigure})}
+
+%*******************
+% таблицы
+%*******************
+
+\RequirePackage{tabularray}
+\NewTblrTheme{ecsn}{
+    %\SetTblrStyle{firsthead}{font=\bfseries}
+    \SetTblrStyle{caption-tag}{font=\small\bfseries}
+    \SetTblrStyle{caption-text}{font=\small}
+    \SetTblrStyle{contfoot-text}{font=\small}
+    \SetTblrStyle{conthead-text}{font=\small}
+}
+
+\DefTblrTemplate{caption-sep}{default}{.\enskip}
+\DefTblrTemplate{contfoot-text}{default}{Продолжение на следующей странице}
+\DefTblrTemplate{conthead-text}{default}{(Продолжение таблицы)}
+
+%*******************
+% Заголовки
+%*******************
+\RequirePackage[pagestyles,explicit]{titlesec}
+\RequirePackage{titletoc}
+
+% \titleformat{command}[shape]{format}{label}{sep}{before-code}[after-code]
+
+
+%\titleformat{\chapter}%
+%{\normalfont\HUGE\bfseries}%
+%{\MakeUppercase{#1}}%
+%{.5em}
+%{\vspace{.5ex}}
+%[\thispagestyle{empty}\afterpage{\blankpage}]
+\titleformat{\chapter}[block]
+  {\normalfont\fontsize{33pt}{33pt}\selectfont\bfseries}
+  {\parbox{0.7\textwidth}
+    {\raggedright\MakeUppercase{#1}}}
+    {0pt}
+    {\thispagestyle{empty}}
+    [\afterpage{\blankpage}]
+
+  
+\titleformat{\section}[block]
+{\color{v3cSection}\setstretch{1.1}\raggedright\normalfont\huge\bfseries}
+{#1}
+{0em}
+{}
+[{\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}]
+    
+\titleformat{\subsection}[block]
+{\color{black}\raggedright\normalfont\normalsize\bfseries}
+{#1}
+{0pt}
+{}
+[]
+
+\titlespacing*{\section}
+    {0pt} % left
+    {3mm} % before
+    {1em} % after
+    
+% titlesec добавляет много сверху, убираем
+\titlespacing*{\chapter}
+    {0pt} % left
+    {-0.5in} % before
+    {1em} % after
+    
+\titlespacing*{\subsection}
+{0pt} % left
+{4pt} % before
+{0pt} % after
+
+%*******************
+% Стили в оглавлении
+%*******************
+
+\titlecontents{chapter}
+[5mm]
+{\addvspace{1em}}
+{\bfseries\uppercase}
+{\bfseries\uppercase}%\hspace*{-9mm}
+{\hfill \normalfont \contentspage}[\medskip]
+
+
+\titlecontents{section}
+[9mm]
+{\raggedright}
+{}
+{}%\hspace*{-9mm}
+{\titlerule*[0.3pc]{.}\contentspage}[\medskip]
+
+% Запрет переносов
+% см. https://tex.stackexchange.com/questions/430173/disable-hyphenation-in-toc
+% не работает для частичных ToC
+\renewcommand{\@tocrmarg}{2.55em plus1fil}
+
+% главы без страниц
+\assignpagestyle{\chapter}{empty}
+
+%*******************
+% колонтитулы
+%*******************
+
+
+
+\newpagestyle{main}[\small]{
+    %\setheadrule{0.6pt}%
+    \sethead[\textup{\thepage}]%                                even-left
+            [\color{v3cHeaderText} \ecsnName~•~\ecsnYear~•~№\ecsnMonth~(\ecsnNum)]%   even-center
+            []%                                                 even-right
+            {}%                                                 odd-left
+            {\color{v3cHeaderText}\chaptertitle}%                                    odd-center
+            {\color{v3cHeaderText}\textup{\thepage}}%                                odd-right
+    \renewcommand{\makeheadrule}{\color{v3cHeaderRule} \rule[-.3\baselineskip]{\linewidth}{0.6pt}}
+  }
+
+\newpagestyle{mainEn}[\small]{
+    \setheadrule{0.6pt}%
+    \sethead[\textup{\thepage}]%                                even-left
+            [\color{v3cHeaderText}\ecsnNameEn~•~\ecsnYear~•~№\ecsnMonth~(\ecsnNum)]% even-center
+            []%                                                 even-right
+            {}%                                                 odd-left
+            {\ecsnNameEn~•~\ecsnYear~•~№\ecsnMonth~(\ecsnNum)}% odd-center
+            {\color{v3cHeaderText}\textup{\thepage}}%                                odd-right
+  }
+
+%*********************
+% Библиография
+%*********************
+\RequirePackage[%
+backend=biber,
+bibencoding=utf8,
+style=gost-numeric,
+language=autobib,
+autolang=other,
+clearlang=true,
+sortcites=true,
+]{biblatex}
+
+\RequirePackage{csquotes}
+
+% Вначале выводим русскоязычныке источники по langid
+\DeclareSourcemap{
+    \maps[datatype=bibtex]{
+        \map{
+            \step[fieldsource=langid, match=russian, final]
+            \step[fieldset=presort, fieldvalue={a}]
+        }
+        \map{
+            \step[fieldsource=langid, notmatch=russian, final]
+            \step[fieldset=presort, fieldvalue={z}]
+        }
+    }
+}
+
+% Перенос длинных URL в библиографии
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+% Запрет кодирования URL
+\DeclareFieldFormat{url}{%
+    \mkbibacro{URL}\addcolon\space
+    \href{#1}{\nolinkurl{\thefield{urlraw}}}}
+
+% Нумерация библиографии с точкой
+\renewcommand\@biblabel[1]{#1.}
+
+% шрифт в библиографии
+%\AtBeginBibliography{\fontsize{9pt}{11.5pt}\selectfont}
+
+\renewcommand*{\bibfont}{\small}
+
+\defbibheading{ecsnBibheading}{\begin{center}\normalsize \bfseries Библиографический список\end{center}}
+\defbibheading{ecsnBibheadingEn}{\begin{center}\normalsize \bfseries References\end{center}}
+
+% цвет квадратных скобок в биб ссылках, сами ссылки — см. citecolor в hyperref
+\AtEveryCite{\color{v3cBib}}
+
+%*************
+% нумерация
+%*************
+\RequirePackage{chngcntr}
+\counterwithout{equation}{chapter}
+\counterwithout{figure}{chapter}
+\counterwithout{table}{chapter}
+
+%*******************
+% висяки и переносы
+%*******************
+\hyphenpenalty=750 % default = 50
+\RequirePackage{lua-widow-control}
+\lwcsetup{balanced}
+
+%\clubpenalty=8000
+%\widowpenalty=8000
+%подавление переносов между страницами
+\brokenpenalty=8000\relax
+
+% переносы
+\input{hyphenation.tex}
+
+% автоматизация запрета на отрыв предлогов
+\RequirePackage{luavlna}
+\singlechars{russian}{ВСАКИОУвсакиоу}
+
+%*******************
+% hyperref
+%*******************
+
+\newif\ifhtlatex
+\@ifpackageloaded{tex4ht}{
+\RequirePackage[final,
+pdfauthor={\ecsnName},
+pdftitle={\ecsnYear{} №~\ecsnMonth{} (\ecsnNum)}, tex4ht]{hyperref}}{
+\RequirePackage[final,
+pdfauthor={\ecsnName},
+pdftitle={\ecsnYear{} №~\ecsnMonth{} (\ecsnNum)}, luatex]{hyperref}
+}
+
+
+\hypersetup{
+    unicode=true,
+    colorlinks=true,
+    linkcolor=ecsnColor1,
+    citecolor=v3cBib,
+    filecolor=blue,
+    urlcolor=ecsnColor1
+}
+
+%*******************
+% Окружения и макросы
+%*******************
+
+\RequirePackage{ifthen}
+
+% ссылки с черным цветом (для email)
+\newcommand{\Blhref}[3][v3cText]{\href{#2}{\color{#1}{#3}}}%
+
+\newcommand{\ecsnDOI}[1]{\ecsnDOIprefix.\ecsnNum .{#1}}
+
+% список ключевых слов
+\newcommand{\ecsnKwords}[1]
+    {\vspace{0.5em}
+     \begingroup
+         \setstretch{1.0}
+         \par\noindent{\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}
+
+         \noindent {\color{v3cKW1}\medfont Ключевые слова}:
+         {\color{v3cKW2} #1\par}
+     \endgroup
+     \write\myoutput{Keywords\thesection: "#1"}
+    }
+
+% для Hat    
+\newcommand{\ecsnKwordsEnH}[1]
+{\vspace{0.5em}
+    \begingroup
+    \setstretch{1.0}
+    \par\noindent{\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}
+    
+    \noindent {\color{v3cKW1}\medfont Keywords}:
+    {\color{v3cKW2} #1\par}
+    \endgroup
+    \write\myoutput{Keywords\thesection: "#1"}
+}
+
+\newcommand{\ecsnKwordsEn}[1]
+    {\vspace{0.5em}%
+     \begingroup
+        \noindent \textbf{\color{v3cKW1}Keywords}:
+        {\color{v3cKW2} \textit{#1}\par}
+        \par\noindent{\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}
+     \endgroup
+     \write\myoutput{Keywords\thesection: "#1"}
+    }
+    
+\newcommand{\ecsnAbstract}[1]{%
+    %\vspace{2mm}%
+    %\vspace{2mm}%
+    \noindent    #1\par
+    
+    \par\noindent{\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}
+    \write\myoutput{Abstract\thesection: "#1"}
+}
+
+\newcommand{\ecsnAbstractNR}[1]{%
+    %\vspace{2mm}%
+    %\vspace{2mm}%
+    \noindent    #1\par
+    
+    \write\myoutput{Abstract\thesection: "#1"}
+}
+
+% блок Kwords+Abstract
+\newcommand{\ecsnHat}[2]{%
+    \ecsnKwords{#1}
+    \ecsnAbstract{#2}
+}
+
+% блок Kwords+Abstract без линейки
+\newcommand{\ecsnHatNR}[2]{%
+    \ecsnKwords{#1}
+    \ecsnAbstractNR{#2}
+}
+
+% блок Kwords+Abstract
+\newcommand{\ecsnHatEn}[2]{%
+    \ecsnKwordsEnH{#1}
+    \ecsnAbstract{#2}
+}
+
+\newenvironment{ecsnArticle}
+{\begin{refsection}
+ \begin{multicols}{2}}
+{\end{multicols}
+\FloatBarrier
+
+\begin{multicols}{2}
+\ecsnBibSpace
+\begingroup
+\setstretch{1.0}
+\printbibliography[heading=ecsnBibheading]
+\endgroup
+\end{multicols}
+\end{refsection}
+
+\ecsnFooterWrite}
+
+\newenvironment{ecsnArticleEn}
+{
+        \renewcommand\thesubfigure{\alph{subfigure})}  
+    \begin{refsection}
+        \begin{multicols}{2}}
+        {\end{multicols}
+        \FloatBarrier
+        
+        \begin{multicols}{2}
+            \ecsnBibSpace
+            \begingroup
+            \setstretch{1.0}
+            \printbibliography[heading=ecsnBibheadingEn]
+            \endgroup
+        \end{multicols}
+    \end{refsection}
+    \renewcommand\thesubfigure{\asbuk{subfigure})}
+    \ecsnFooterWrite}
+
+% глава (рубрика)
+\newcommand{\ecsnChapter}[1]{%
+    \chapter{#1}
+    \write\myoutput{Chapter\thechapter: "#1"}
+}
+
+\newcommand{\ecsnChapterEn}[2]{%
+   \begin{center}%
+    \Large\bfseries%
+    \rule{#2\textwidth}{0.5pt}\\
+    \MakeUppercase{#1}\\
+    \vspace{-10pt}\rule{#2\textwidth}{0.5pt}\end{center}
+   \phantomsection
+   \addcontentsline{toc}{chapter}{#1}
+   \write\myoutput{Chapter\thechapter: "#1"}
+}
+
+% секция (статья)
+\newcommand\ecsnSection[2]{%
+    \section[\bfseries#1~{\normalfont #2}]{#2}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{footnote}{0}
+    \write\myoutput{Authors\thesection: "#1"}
+    \write\myoutput{Article\thesection: "#2"}
+    \write\myoutput{First\thesection: \thepage}
+}
+
+% секция с измененной строкой в оглавлении (добавлять \newline)
+% 1 = авторы; 2 = заголовок; 3 = заголовок для ToC;
+
+\newcommand\ecsnSectionLB[3]{%
+    \section[\bfseries#1~{\normalfont #3}]{#2}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{footnote}{0}
+    \stepcounter{section}
+    \write\myoutput{Authors\thesection: "#1"}
+    \write\myoutput{Article\thesection: "#2"}
+    \write\myoutput{First\thesection: \thepage}
+}
+
+% секция со сноской
+\newcommand\ecsnSectionFn[3]{%
+    \renewcommand*{\thefootnote}{\color{ecsnSponsorFootnoteColor}{\fnsymbol{footnote}}}%
+    %\renewcommand*{\thefootnote}{₽}%
+    \begin{flushleft}
+    \vspace{3mm}
+    \huge
+    \begingroup
+        \setstretch{1.1} \color{v3cSection}\textbf{#2}{\hypersetup{linkcolor=ecsnSponsorFootnoteColor}\footnote[1]{\color{ecsnSponsorFootnoteColor}{#3}
+                                                                    \color{ecsnSponsorFootnoteColor}{(₽)}}
+    {\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}}\par\normalsize
+    \endgroup
+    \end{flushleft}
+    \phantomsection
+    \addcontentsline{toc}{section}{\textbf{#1}~ #2}
+    \renewcommand*{\thefootnote}{\arabic{footnote}}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{footnote}{0}
+    \stepcounter{section}
+    \write\myoutput{Authors\thesection: "#1"}
+    \write\myoutput{Article\thesection: "#2"}
+    \write\myoutput{First\thesection: \thepage}
+}
+
+% секция со сноской и измененной строкой в оглавлении (добавлять \newline)
+% 1 = авторы; 2 = заголовок; 3 = сноска; 4 = заголовок для ToC;
+\newcommand\ecsnSectionFnLB[4]{%
+    \renewcommand*{\thefootnote}{\color{ecsnSponsorFootnoteColor}{\fnsymbol{footnote}}}%
+    %\renewcommand*{\thefootnote}{₽}%
+    \begin{center} 
+    \vspace{0.5em}
+    \huge
+    \color{v3cSection}\textbf{#2}{%
+        \hypersetup{linkcolor=ecsnSponsorFootnoteColor}\footnote[1]{\color{ecsnSponsorFootnoteColor}{#3}
+                                                                    \color{ecsnSponsorFootnoteColor}{(₽)}}
+    {\color{v3cHeaderRule} \rule{\textwidth}{0.6pt}}}\normalsize
+    \end{center}
+    \phantomsection
+    \addcontentsline{toc}{section}{\textbf{#1}~ #4}
+    \renewcommand*{\thefootnote}{\arabic{footnote}}
+    \setcounter{figure}{0}
+    \setcounter{table}{0}
+    \setcounter{equation}{0}
+    \setcounter{footnote}{0}
+    \stepcounter{section}
+    \write\myoutput{Authors\thesection: "#1"}
+    \write\myoutput{Article\thesection: "#2"}
+    \write\myoutput{First\thesection: \thepage}
+}
+
+% v3 Автор, должность, организация, email    
+\newcommand{\ecsnAut}[3]{%
+    \begin{flushleft}
+        © \ecsnYear{} {\bfseries #1}\\%
+        #2 E-mail: \Blhref{mailto:#3}{#3}%
+    \end{flushleft}
+}
+
+% Автор, должность, организация, email    
+\newcommand{\ecsnAuthor}[4]{%
+    \centerline{\begin{minipage}{0.8\textwidth}
+    %\setstretch{1.0}
+       \centering
+        \vspace{0.5em}%
+        © \ecsnYear{} {\bfseries #1}\\%
+        #2\\%
+        #3\\%
+        E-mail: \Blhref{mailto:#4}{#4}%
+    %\setmainlinespread
+    \end{minipage}}
+}
+
+% опциональный УДК слева, DOI справа
+\newcommand{\ecsnHeader}[1][]{%
+    \clearpage
+    \ifthenelse{ \equal{#1}{} }
+      {\large\textbf{DOI:~\ecsnDOI{\thepage}}}
+      {\noindent \large\textbf{УДК~#1} \hspace{1.5em} \large\textbf{DOI:~\ecsnDOI{\thepage}}}
+    \normalsize
+}
+
+% для мелких изображений в multicol
+\newenvironment{Figure}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+
+% отступ перед Биб. списком
+\newcommand{\ecsnBibSpace}{%
+\vspace{1em}
+}
+
+
+% Оглавление русск. части
+\newcommand{\ecsnPrintRuCont}{%
+    {\hspace{5mm}\raggedright\Large\bfseries\MakeUppercase{Содержание}\par}
+    %\hyphenchar\font=-1 % disable hyphen
+    % \printcontents[<name>]{<prefix>}{<нач уровень>}[<глубина>]{<toc-code>}
+    {\hypersetup{linkcolor=black}\printcontents[partru]{ }{0}[1]
+    {}}
+    %\hyphenchar\font=`\- % reset hyphen
+    \clearpage
+}
+
+% Оглавление англ. части
+\newcommand{\ecsnPrintEnCont}{%
+    \pagestyle{empty}
+    {\hspace{5mm}\raggedright\Large\bfseries\MakeUppercase{Contents}\par}
+    %\hyphenchar\font=-1 % disable hyphen
+    {\hypersetup{linkcolor=black}\printcontents[parten]{ }{0}[1]
+    {}}
+    %\hyphenchar\font=`\- % reset hyphen
+}
+
+
+% удерживать pagestyle в Оглавлении
+\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+
+% логировать выходные данные
+\AtBeginDocument{
+    \write\myoutput{Journal: \ecsnName}
+    \write\myoutput{Month: \ecsnMonth}
+    \write\myoutput{Num: \ecsnNum}
+    \write\myoutput{Year: \ecsnYear}
+}
+
+\newcommand{\ecsnFooterWrite}{%
+    \write\myoutput{Last\thesection: \thepage}
+}
+
+% блок с предотвращением разрыва страниц
+\newenvironment{glued}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
